@@ -18,7 +18,7 @@ func NewRouter() *Router {
 	r := &Router{}
 	r.engine = gin.Default()
 
-	// TODO: Dependency Injection
+	// TODO: Automate Dependency Injection
 	// services
 	bookService := services.NewBookService()
 
