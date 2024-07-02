@@ -2,7 +2,6 @@ package router
 
 import (
 	"gin-framework-test/basic-api/controllers"
-	"gin-framework-test/basic-api/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,16 +13,15 @@ type Router struct {
 	bookController   controllers.BookController
 }
 
-func NewRouter() *Router {
+func NewRouter(
+	bookController controllers.BookController,
+	healthController controllers.HealthController,
+) *Router {
 	r := &Router{}
 	r.engine = gin.Default()
 
-	// TODO: Automate Dependency Injection
-	// services
-	bookService := services.NewBookService()
-
-	r.bookController = controllers.NewBookController(bookService)
-	r.healthController = controllers.NewHealthController()
+	r.bookController = bookController
+	r.healthController = healthController
 
 	return r
 }

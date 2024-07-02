@@ -21,7 +21,9 @@ func NewBookController(bookService services.BookService) BookController {
 func (c *BookController) HandlePostBook(ctx *gin.Context) {
 
 	book := domain.Book{
-		Name: "test",
+		Name:   "test name",
+		Author: "test author",
+		Price:  5.99,
 	}
 
 	err := c.bookService.Save(book)
