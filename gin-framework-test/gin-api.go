@@ -46,6 +46,7 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	cfg := infrastructure.Config{
+		// TODO: extract to a json config file
 		DB: infrastructure.DBConfig{
 			User:     "admin",
 			Password: "admin",
