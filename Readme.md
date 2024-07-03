@@ -11,3 +11,6 @@
         - Interfaces;
         - Implement services;
         - Add config;
+    
+- mysql-connection
+    - Basic test connecting to a local mysql database;
