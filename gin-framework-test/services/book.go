@@ -8,6 +8,7 @@ import (
 
 type BookService interface {
 	Save(book domain.Book) error
+	GetBooks() (books []domain.Book, err error)
 }
 
 type bookService struct {
@@ -44,4 +45,36 @@ func (s *bookService) Save(book domain.Book) error {
 
 	fmt.Println("Book Created!")
 	return nil
+}
+
+func (s *bookService) GetBooks() (books []domain.Book, err error) {
+
+	query := `
+		SELECT * FROM tab_books;
+	`
+
+	rows, err := s.db.Query(query)
+	if err != nil {
+		return books, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var book domain.Book
+		if err := rows.Scan(&book.Id, &book.Name, &book.Author, &book.Price); err != nil {
+			return books, err
+		}
+		books = append(books, book)
+	}
+
+	if err := rows.Err(); err != nil {
+		return books, err
+	}
+	// books = append(books, domain.Book{
+	// 	Name:   "test",
+	// 	Author: "author",
+	// 	Price:  10.0,
+	// })
+
+	return books, nil
 }

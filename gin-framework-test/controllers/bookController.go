@@ -21,8 +21,8 @@ func NewBookController(bookService services.BookService) BookController {
 func (c *BookController) HandlePostBook(ctx *gin.Context) {
 
 	book := domain.Book{
-		Name:   "test name",
-		Author: "test author",
+		Name:   "name of the book",
+		Author: "author name",
 		Price:  5.99,
 	}
 
@@ -32,4 +32,13 @@ func (c *BookController) HandlePostBook(ctx *gin.Context) {
 	}
 
 	ctx.Status(http.StatusCreated)
+}
+
+func (c *BookController) HandleGetBooks(ctx *gin.Context) {
+	books, err := c.bookService.GetBooks()
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+	}
+
+	ctx.JSON(http.StatusOK, books)
 }
