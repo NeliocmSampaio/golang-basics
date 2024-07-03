@@ -70,11 +70,6 @@ func (s *bookService) GetBooks() (books []domain.Book, err error) {
 	if err := rows.Err(); err != nil {
 		return books, err
 	}
-	// books = append(books, domain.Book{
-	// 	Name:   "test",
-	// 	Author: "author",
-	// 	Price:  10.0,
-	// })
 
 	return books, nil
 }
