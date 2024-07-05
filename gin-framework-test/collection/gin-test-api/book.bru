@@ -6,6 +6,15 @@ meta {
 
 post {
   url: {{base-url}}/book
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+      "Id": 1,
+      "Name": "test direto da requisição",
+      "Author": "test author II",
+      "Price": 8.99
+  }
 }

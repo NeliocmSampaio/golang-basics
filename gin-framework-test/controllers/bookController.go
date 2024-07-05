@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"gin-framework-test/basic-api/controllers/requests"
 	"gin-framework-test/basic-api/domain"
 	"gin-framework-test/basic-api/services"
 	"net/http"
@@ -20,10 +21,15 @@ func NewBookController(bookService services.BookService) BookController {
 
 func (c *BookController) HandlePostBook(ctx *gin.Context) {
 
+	request := requests.BookRequest{}
+	if err := ctx.BindJSON(&request); err != nil {
+		ctx.Status(http.StatusBadRequest)
+	}
+
 	book := domain.Book{
-		Name:   "name of the book",
-		Author: "author name",
-		Price:  5.99,
+		Name:   request.Name,
+		Author: request.Author,
+		Price:  request.Price,
 	}
 
 	err := c.bookService.Save(book)
