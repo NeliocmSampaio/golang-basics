@@ -7,10 +7,12 @@
 
 - gin-framework-test
     - Tests using the gin framework. Next steps:
-        - Dependency injection;
-        - Interfaces;
-        - Implement services;
-        - Add config;
+        - Setup cache with redis;
+        - Automate dependency injection using containers;
+        - Extract config to a JSON file;
     
 - mysql-connection
     - Basic test connecting to a local mysql database;
+
+- gin-basic
+    - Just a basic test creating a GET and a POST endpoints. Based on gin documentation.
