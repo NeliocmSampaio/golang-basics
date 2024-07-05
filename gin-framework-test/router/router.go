@@ -2,6 +2,7 @@ package router
 
 import (
 	"gin-framework-test/basic-api/controllers"
+	"gin-framework-test/basic-api/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,6 +20,7 @@ func NewRouter(
 ) *Router {
 	r := &Router{}
 	r.engine = gin.Default()
+	r.engine.Use(middlewares.Logger())
 
 	r.bookController = bookController
 	r.healthController = healthController

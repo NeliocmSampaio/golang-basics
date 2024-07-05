@@ -18,3 +18,6 @@
 
 - gin-basic
     - Just a basic test creating a GET and a POST endpoints. Based on gin documentation.
+
+- custom-middleware-gin
+    - Basic test based on gin documentation. Creates a custom log middleware.

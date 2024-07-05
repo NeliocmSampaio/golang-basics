@@ -27,7 +27,6 @@ func (s *bookService) Save(book entities.Book) (err error) {
 	if err != nil {
 		return err
 	}
-	// fmt.Println(id)
 
 	fmt.Println("Book Created!")
 	return nil
