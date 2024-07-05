@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"gin-framework-test/basic-api/controllers/requests"
-	"gin-framework-test/basic-api/domain"
+	"gin-framework-test/basic-api/domain/entities"
 	"gin-framework-test/basic-api/services"
 	"net/http"
 
@@ -26,7 +26,7 @@ func (c *BookController) HandlePostBook(ctx *gin.Context) {
 		ctx.Status(http.StatusBadRequest)
 	}
 
-	book := domain.Book{
+	book := entities.Book{
 		Name:   request.Name,
 		Author: request.Author,
 		Price:  request.Price,

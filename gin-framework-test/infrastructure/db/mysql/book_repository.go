@@ -1,34 +1,30 @@
-package services
+package mysql
 
 import (
 	"database/sql"
 	"fmt"
-	"gin-framework-test/basic-api/domain"
+	"gin-framework-test/basic-api/domain/entities"
+	"gin-framework-test/basic-api/domain/repositories"
 )
 
-type BookService interface {
-	Save(book domain.Book) error
-	GetBooks() (books []domain.Book, err error)
-}
-
-type bookService struct {
+type BookRepository struct {
 	db *sql.DB
 }
 
-func NewBookService(db *sql.DB) BookService {
-	return &bookService{
+func NewBookRepository(db *sql.DB) repositories.BookRepository {
+	return &BookRepository{
 		db: db,
 	}
 }
 
-func (s *bookService) Save(book domain.Book) error {
+func (r *BookRepository) Add(book entities.Book) (err error) {
 	query := `
 		INSERT INTO tab_books (title, author, price)
 		VALUES (?, ?, ?)
 		;
 	`
 
-	result, err := s.db.Exec(query,
+	result, err := r.db.Exec(query,
 		book.Name,
 		book.Author,
 		book.Price)
@@ -47,20 +43,19 @@ func (s *bookService) Save(book domain.Book) error {
 	return nil
 }
 
-func (s *bookService) GetBooks() (books []domain.Book, err error) {
-
+func (r *BookRepository) GetBooks() (books []entities.Book, err error) {
 	query := `
 		SELECT * FROM tab_books;
 	`
 
-	rows, err := s.db.Query(query)
+	rows, err := r.db.Query(query)
 	if err != nil {
 		return books, err
 	}
 	defer rows.Close()
 
 	for rows.Next() {
-		var book domain.Book
+		var book entities.Book
 		if err := rows.Scan(&book.Id, &book.Name, &book.Author, &book.Price); err != nil {
 			return books, err
 		}

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"gin-framework-test/basic-api/controllers"
 	"gin-framework-test/basic-api/infrastructure"
+	mysqlRepository "gin-framework-test/basic-api/infrastructure/db/mysql"
 	"gin-framework-test/basic-api/router"
 	"gin-framework-test/basic-api/services"
 	"log"
@@ -75,9 +76,12 @@ func main() {
 		log.Fatal(pingErr)
 	}
 
+	// MySQL repository
+	mysqlConn := mysqlRepository.NewBookRepository(db)
+
 	// TODO: Automate Dependency Injection
 	// services
-	bookService := services.NewBookService(db)
+	bookService := services.NewBookService(mysqlConn)
 
 	bookController := controllers.NewBookController(bookService)
 	healthController := controllers.NewHealthController()
